@@ -166,9 +166,9 @@ export function useStudio() {
       await studioPost(LINKS_MANAGE_URL, { action: "reorder", ids });
     },
 
-    async saveLinkSettings(patch: { link_bio?: string; kit_show_links?: boolean }) {
+    async saveLinkSettings(patch: { link_bio?: string; kit_show_links?: boolean; link_theme?: string }) {
       await studioPost(LINKS_MANAGE_URL, { action: "settings", ...patch });
-      mutate((d) => (d.links ? { ...d, links: { ...d.links, bio: patch.link_bio ?? d.links.bio, kit_show: patch.kit_show_links ?? d.links.kit_show } } : d));
+      mutate((d) => (d.links ? { ...d, links: { ...d.links, bio: patch.link_bio ?? d.links.bio, theme: patch.link_theme ?? d.links.theme, kit_show: patch.kit_show_links ?? d.links.kit_show } } : d));
     },
 
     /** Pulls in TikTok links she pasted (up to 10 at a time). */

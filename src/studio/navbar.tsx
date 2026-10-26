@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/utility/theme-toggle";
 import { cn } from "@/lib/utils";
 
+import { PaletteSwitch } from "./palette";
 import { TABS, type TabId } from "./tabs";
 import { Wordmark } from "./wordmark";
 
@@ -22,7 +23,7 @@ function Count({ n, className }: { n: number; className?: string }) {
   return (
     <span
       className={cn(
-        "bg-chart-2 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1.5 text-[10.5px] font-bold text-[#2f4156] tabular-nums",
+        "bg-chart-2 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1.5 text-[10.5px] font-bold text-[var(--brand-deep)] tabular-nums",
         className,
       )}
     >
@@ -92,7 +93,7 @@ export default function StudioNavbar({
         </nav>
 
         <div className="hidden items-center justify-end gap-3 lg:flex">
-          <span className="text-muted-foreground hidden items-center gap-2 text-xs xl:inline-flex">
+          <span className="text-muted-foreground hidden items-center gap-2 text-xs 2xl:inline-flex">
             <span className="relative flex size-1.5">
               <span className="bg-chart-2 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
               <span className="bg-chart-2 relative inline-flex size-1.5 rounded-full" />
@@ -104,6 +105,7 @@ export default function StudioNavbar({
               <Lightbulb className="size-4" /> <span className="hidden xl:inline">Suggest</span>
             </Button>
           ) : null}
+          <PaletteSwitch />
           <ThemeToggle />
           {onLock ? (
             <Button size="sm" variant="ghost" className="rounded-full px-3" onClick={onLock}>
@@ -116,6 +118,7 @@ export default function StudioNavbar({
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <PaletteSwitch />
           <ThemeToggle />
           <button
             className="text-muted-foreground relative flex size-8 rounded-sm border"

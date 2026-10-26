@@ -26,9 +26,10 @@ import { cn } from "@/lib/utils";
 import { CopyButton, Field, Modal, NativeSelect, Pill, Spinner, Working, dayLabel, nyDay, timeLabel, useAction, useToast } from "./bits";
 import type { Carousel, CarouselSlide, Look, Platform } from "./data";
 import StudioHero from "./hero";
+import { usePaletteKey } from "./palette";
 import { TIMES } from "./ideas";
 import { shortDate } from "./insights";
-import { LOOKS, SIZES, drawSlide, ensureFonts, importPhoto, photoBitmap, slideBlob, type SizeKey } from "./slides";
+import { LOOKS, SIZES, currentLooks, drawSlide, ensureFonts, importPhoto, photoBitmap, slideBlob, type SizeKey } from "./slides";
 import { useStudio } from "./store";
 import { Empty, Grid, Panel, Skeleton } from "./ui";
 
@@ -95,6 +96,7 @@ function SlideCanvas({ slide, index, total, look, size, width, handle, className
   const [missing, setMissing] = useState(false);
   const S = SIZES[size];
   const height = Math.round((width * S.h) / S.w);
+  const paletteKey = usePaletteKey();
   useEffect(() => {
     let live = true;
     let raf = 0;
@@ -118,7 +120,7 @@ function SlideCanvas({ slide, index, total, look, size, width, handle, className
       live = false;
       cancelAnimationFrame(raf);
     };
-  }, [slide, index, total, look, size, width, height, handle, S.w]);
+  }, [slide, index, total, look, size, width, height, handle, S.w, paletteKey]);
   return (
     <div className={cn("relative shrink-0", className)} style={{ width }}>
       <canvas ref={ref} style={{ width, height }} className="border-border block rounded-lg border shadow-sm" aria-label={`Slide ${index + 1} preview`} />
@@ -249,7 +251,7 @@ function popaiText(c: Carousel, size: SizeKey) {
   const lines = c.body.slides.map((x, i) => [`Slide ${i + 1}${i === 0 ? " (hook)" : ""}:`, x.kicker ? `  Small line: ${x.kicker}` : "", `  Title: ${x.title}`, x.body ? `  Text: ${x.body}` : "", x.photo ? `  Photo: ${x.photo}` : ""].filter(Boolean).join("\n"));
   return [
     `Design a ${c.body.slides.length}-slide ${size === "instagram" ? "Instagram" : "TikTok photo"} carousel, ${S.w}×${S.h} (${size === "instagram" ? "4:5" : "9:16"}).`,
-    "Style: warm and clean, beige (#F5EFEB) and navy (#2F4156) with a soft blue accent (#567C8D), a serif for titles. Big, readable text.",
+    `Style: bold and clean in my brand colors: background ${currentLooks().beige.bg}, text ${currentLooks().beige.fg}, main color ${currentLooks().navy.bg}, accent ${currentLooks().beige.accent}; a serif for titles. Big, readable text.`,
     "Use exactly this text. Do not add facts, prices, places or statistics.",
     "",
     ...lines,
@@ -264,7 +266,7 @@ async function makePptx(c: Carousel, size: SizeKey) {
   pptx.defineLayout({ name: "MTS", width: W, height: H });
   pptx.layout = "MTS";
   pptx.title = c.title;
-  const L = LOOKS[c.body.look === "navy" ? "navy" : "beige"];
+  const L = currentLooks()[c.body.look === "navy" ? "navy" : "beige"];
   const hex = (v: string) => (v.startsWith("#") ? v.slice(1) : "FFFFFF");
   c.body.slides.forEach((x, i) => {
     const sl = pptx.addSlide();

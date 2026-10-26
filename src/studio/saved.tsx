@@ -93,7 +93,7 @@ function SavedCard({ v, onScript, writing }: { v: SavedVideo; onScript: (v: Save
             Carousel
           </CarouselButton>
           <label className="border-border hover:bg-muted inline-flex h-6 cursor-pointer items-center gap-1.5 rounded-full border px-2.5 text-xs font-medium">
-            <input type="checkbox" className="accent-[#567c8d] size-3.5" checked={v.used} disabled={!!busy} onChange={() => void run("used", () => s.updateSaved(v, { used: !v.used }), v.used ? "Moved back to ideas" : "Marked as made")} />
+            <input type="checkbox" className="accent-[var(--chart-1)] size-3.5" checked={v.used} disabled={!!busy} onChange={() => void run("used", () => s.updateSaved(v, { used: !v.used }), v.used ? "Moved back to ideas" : "Marked as made")} />
             Made it
           </label>
           {!editing && !v.note ? (

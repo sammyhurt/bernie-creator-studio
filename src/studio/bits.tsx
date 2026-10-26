@@ -96,7 +96,7 @@ export function Modal({ open, onClose, title, children, wide = false }: { open: 
     <AnimatePresence>
       {open ? (
         <motion.div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center sm:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <div className="absolute inset-0 bg-[#2f4156]/45 backdrop-blur-[2px]" onClick={() => closeRef.current()} aria-hidden />
+          <div className="absolute inset-0 bg-black/45 backdrop-blur-[2px]" onClick={() => closeRef.current()} aria-hidden />
           <motion.div
             ref={box}
             role="dialog"

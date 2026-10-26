@@ -4,7 +4,7 @@ import { Wordmark } from "./wordmark";
 
 export default function StudioFooter({ onSuggest }: { onSuggest?: () => void }) {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-[#2f4156] py-14 text-white lg:py-20">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[var(--brand-deep)] py-14 text-white lg:py-20">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center overflow-hidden">
         <span className="font-serif translate-y-[30%] text-[8rem] leading-none text-white/[0.05] select-none sm:text-[14rem] lg:text-[20rem]">Bernie</span>
       </div>
@@ -19,7 +19,7 @@ export default function StudioFooter({ onSuggest }: { onSuggest?: () => void }) 
         </div>
         <div className="flex flex-col items-start gap-3 md:items-end">
           {onSuggest ? (
-            <button type="button" onClick={onSuggest} className="rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white hover:bg-white hover:text-[#2f4156]">
+            <button type="button" onClick={onSuggest} className="rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white hover:bg-white hover:text-[var(--brand-deep)]">
               Suggest a feature
             </button>
           ) : null}

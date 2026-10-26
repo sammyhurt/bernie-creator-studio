@@ -28,7 +28,7 @@ function pace(series: { day: string; followers: number }[] | undefined) {
 function Check({ checked, onToggle, children, sub }: { checked: boolean; onToggle: () => void; children: ReactNode; sub?: ReactNode }) {
   return (
     <label className={cn("border-border flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors", checked ? "bg-chart-1/5" : "bg-background/70 hover:bg-muted/40")}>
-      <input type="checkbox" checked={checked} onChange={onToggle} className="accent-[#567c8d] mt-0.5 size-5 shrink-0" />
+      <input type="checkbox" checked={checked} onChange={onToggle} className="accent-[var(--chart-1)] mt-0.5 size-5 shrink-0" />
       <span className="min-w-0">
         <span className={cn("block text-sm font-medium", checked && "text-muted-foreground line-through")}>{children}</span>
         {sub ? <span className="text-muted-foreground mt-0.5 block text-xs">{sub}</span> : null}

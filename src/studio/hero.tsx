@@ -11,6 +11,8 @@ import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import { useTheme } from "@/hooks/use-theme";
 import { cn } from "@/lib/utils";
 
+import { cssVar, usePaletteKey } from "./palette";
+
 export interface HeroAction {
   label: string;
   href?: string;
@@ -39,6 +41,7 @@ export default function StudioHero({
   const colors = useChartColors();
   const mounted = useMounted();
   const isDark = mounted && resolvedTheme === "dark";
+  const paletteKey = usePaletteKey();
   const container = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
   const item = {
     hidden: { opacity: 0, y: 22, filter: "blur(2px)" },
@@ -53,9 +56,9 @@ export default function StudioHero({
       )}
     >
       <FluxShader
-        key={isDark ? "dark" : "light"}
-        backgroundColor={isDark ? "#1c2836" : "#f5efeb"}
-        objectColor={isDark ? "#f5efeb" : "#2f4156"}
+        key={paletteKey}
+        backgroundColor={cssVar("--background", isDark ? "#1c2836" : "#f5efeb")}
+        objectColor={cssVar(isDark ? "--foreground" : "--brand-deep", isDark ? "#f5efeb" : "#2f4156")}
         accentColors={[colors.chart1, colors.chart2, colors.chart3]}
         accentStrength={0.22}
         className="pointer-events-none absolute inset-0 h-full max-h-none min-h-0 opacity-50 dark:opacity-45"

@@ -7,11 +7,26 @@ export const SIZES = {
 } as const;
 export type SizeKey = keyof typeof SIZES;
 
+/** Slide looks follow the Studio colors picked in the top bar (light-mode values, so slides look the same day or night). */
 export const LOOKS: Record<Look, { label: string; bg: string; fg: string; accent: string; sub: string }> = {
-  beige: { label: "Beige", bg: "#F5EFEB", fg: "#2F4156", accent: "#567C8D", sub: "#3D5168" },
-  navy: { label: "Navy", bg: "#2F4156", fg: "#FFFFFF", accent: "#C8D9E6", sub: "rgba(255,255,255,0.85)" },
-  photo: { label: "Photo", bg: "#2F4156", fg: "#FFFFFF", accent: "#C8D9E6", sub: "rgba(255,255,255,0.9)" },
+  beige: { label: "Light", bg: "#F7F9FF", fg: "#0B1F4D", accent: "#E5154F", sub: "#2C3E66" },
+  navy: { label: "Bold", bg: "#0049B7", fg: "#FFFFFF", accent: "#FFF685", sub: "rgba(255,255,255,0.88)" },
+  photo: { label: "Photo", bg: "#0049B7", fg: "#FFFFFF", accent: "#00DDFF", sub: "rgba(255,255,255,0.9)" },
 };
+const PALETTE_LOOKS: Record<string, typeof LOOKS> = {
+  pop: LOOKS,
+  sea: {
+    beige: { label: "Light", bg: "#FCFCFC", fg: "#042A2B", accent: "#0A8A8A", sub: "#2E4E4F" },
+    navy: { label: "Bold", bg: "#042A2B", fg: "#FCFCFC", accent: "#F6E879", sub: "rgba(252,252,252,0.86)" },
+    photo: { label: "Photo", bg: "#042A2B", fg: "#FFFFFF", accent: "#F6E879", sub: "rgba(255,255,255,0.9)" },
+  },
+  classic: {
+    beige: { label: "Light", bg: "#F5EFEB", fg: "#2F4156", accent: "#567C8D", sub: "#3D5168" },
+    navy: { label: "Bold", bg: "#2F4156", fg: "#FFFFFF", accent: "#C8D9E6", sub: "rgba(255,255,255,0.85)" },
+    photo: { label: "Photo", bg: "#2F4156", fg: "#FFFFFF", accent: "#C8D9E6", sub: "rgba(255,255,255,0.9)" },
+  },
+};
+export const currentLooks = () => PALETTE_LOOKS[(typeof document !== "undefined" && document.documentElement.getAttribute("data-palette")) || "pop"] || LOOKS;
 
 const SERIF = '"DM Serif Display", Georgia, serif';
 const SANS = '"Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif';
@@ -89,7 +104,7 @@ export interface DrawOpts {
 /** Draws one slide at full size onto ctx (callers scale the context for small previews). */
 export function drawSlide(ctx: CanvasRenderingContext2D, o: DrawOpts) {
   const S = SIZES[o.size];
-  const L = LOOKS[o.look];
+  const L = currentLooks()[o.look];
   const { w, h } = S;
   const hook = o.index === 0;
   const fullPhoto = o.look === "photo" && !!o.img;

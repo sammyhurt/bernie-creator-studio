@@ -14,7 +14,7 @@ function subscribe(onChange: () => void): () => void {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ["class", "style"],
+    attributeFilter: ["class", "style", "data-palette"],
   });
   return () => observer.disconnect();
 }

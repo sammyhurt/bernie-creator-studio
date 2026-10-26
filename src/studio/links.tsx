@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 
 import { CopyButton, Field, Modal, Pill, Spinner, useAction, useToast } from "./bits";
 import { LINK_PAGE_URL, type Deal, type LinkItem, type LinkKind, type LinksData } from "./data";
+import { PALETTES } from "./palette";
 import { useStudio } from "./store";
 import { Empty, Panel, Stat } from "./ui";
 
@@ -79,7 +80,7 @@ export function LinkModal({ link, groups, onClose, deal }: { link: Draft | null;
         ) : null}
         {kind === "link" || kind === "featured" || kind === "deal" ? (
           <label className="flex items-start gap-2 text-sm">
-            <input type="checkbox" className="mt-1 size-4 accent-[#567c8d]" checked={!!f.sponsored || kind === "deal"} disabled={kind === "deal"} onChange={(e) => set("sponsored")(e.target.checked)} />
+            <input type="checkbox" className="mt-1 size-4 accent-[var(--chart-1)]" checked={!!f.sponsored || kind === "deal"} disabled={kind === "deal"} onChange={(e) => set("sponsored")(e.target.checked)} />
             <span>
               <span className="font-medium">Paid partnership</span>
               <span className="text-muted-foreground block text-xs">Shows an “Ad” label on the button. Always on for brand deals.</span>
@@ -87,7 +88,7 @@ export function LinkModal({ link, groups, onClose, deal }: { link: Draft | null;
           </label>
         ) : null}
         <label className="flex items-start gap-2 text-sm">
-          <input type="checkbox" className="mt-1 size-4 accent-[#567c8d]" checked={f.active !== false} onChange={(e) => set("active")(e.target.checked)} />
+          <input type="checkbox" className="mt-1 size-4 accent-[var(--chart-1)]" checked={f.active !== false} onChange={(e) => set("active")(e.target.checked)} />
           <span>
             <span className="font-medium">Show on my link page</span>
             <span className="text-muted-foreground block text-xs">Hidden links stay saved, and their tracked link still works.</span>
@@ -213,10 +214,33 @@ export function LinkPagePanel() {
               {busy === "bio" ? <Spinner /> : null} Save
             </Button>
           </form>
+          <div className="grid gap-1.5">
+            <span className="text-sm font-medium">Link page colors</span>
+            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Link page colors">
+              {PALETTES.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={(L.theme || "pop") === p.id}
+                  disabled={busy === "theme"}
+                  onClick={() => void run("theme", () => s.saveLinkSettings({ link_theme: p.id }), `Link page set to ${p.label}`)}
+                  className={cn("flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm", (L.theme || "pop") === p.id ? "border-primary font-semibold" : "border-border")}
+                >
+                  <span className="flex -space-x-1">
+                    {p.swatches.slice(0, 4).map((c) => (
+                      <span key={c} className="ring-background size-3 rounded-full ring-2" style={{ background: c }} />
+                    ))}
+                  </span>
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
           <label className="flex items-start gap-2 text-sm">
             <input
               type="checkbox"
-              className="mt-1 size-4 accent-[#567c8d]"
+              className="mt-1 size-4 accent-[var(--chart-1)]"
               checked={L.kit_show}
               disabled={busy === "kit"}
               onChange={(e) => void run("kit", () => s.saveLinkSettings({ kit_show_links: e.target.checked }), e.target.checked ? "Link taps will show on your media kit" : "Link taps hidden from your media kit")}
