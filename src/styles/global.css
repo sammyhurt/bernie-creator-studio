@@ -1,0 +1,294 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+@source "../";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f5efeb;
+  --foreground: #2f4156;
+  --card: #ffffff;
+  --card-foreground: #2f4156;
+  --popover: #ffffff;
+  --popover-foreground: #2f4156;
+  --primary: #2f4156;
+  --primary-foreground: #ffffff;
+  --secondary: #c8d9e6;
+  --secondary-foreground: #2f4156;
+  --muted: #ede5df;
+  --muted-foreground: #5a6b7c;
+  --accent: #e4edf4;
+  --accent-foreground: #2f4156;
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --border: #e3dad3;
+  --input: #ffffff;
+  --ring: #567c8d;
+
+  --chart-1: #567c8d;
+  --chart-2: #c8d9e6;
+  --chart-3: #8fb0c4;
+  --chart-4: #2f4156;
+  --chart-5: #f5efeb;
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  --radius: 8px;
+
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "DM Serif Display", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-text: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+}
+.dark {
+  --background: #1c2836;
+  --foreground: #f5efeb;
+  --card: #243345;
+  --card-foreground: #f5efeb;
+  --popover: #243345;
+  --popover-foreground: #f5efeb;
+  --primary: #c8d9e6;
+  --primary-foreground: #2f4156;
+  --secondary: #33475d;
+  --secondary-foreground: #f5efeb;
+  --muted: #2b3c50;
+  --muted-foreground: #b4c3d0;
+  --accent: #33475d;
+  --accent-foreground: #f5efeb;
+  --destructive: oklch(0.704 0.191 22.216);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: #c8d9e6;
+
+  --chart-1: #8fb3c7;
+  --chart-2: #c8d9e6;
+  --chart-3: #567c8d;
+  --chart-4: #c8d9e6;
+  --chart-5: #243345;
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-transparent: transparent;
+  --radius-xs: calc(var(--radius) - 6px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --font-handwriting: var(--font-handwriting);
+
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@utility container-large {
+  @apply lg:max-w-6xl;
+}
+
+@utility container-small {
+  @apply lg:max-w-5xl;
+}
+
+@utility section-padding {
+  @apply py-12 md:py-16 lg:py-24;
+}
+
+@utility page-top-padding {
+  @apply lg:!pt-64;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+  body,
+  p {
+    font-family: var(--font-text);
+  }
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Toggle Theme View Transitions */
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+@keyframes pattern-drift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+html.theme-transition::view-transition-old(root),
+html.theme-transition::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease;
+  mix-blend-mode: normal;
+}
+
+html.theme-transition::view-transition-old(root) {
+  animation-name: theme-fade-out;
+  z-index: 1;
+}
+
+html.theme-transition::view-transition-new(root) {
+  animation-name: theme-fade-in;
+  z-index: 2;
+}
+
+/* Handle reduced motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .motion-safe-only {
+    display: none !important;
+  }
+}
+
+/* Subletly helpers */
+.text-brand-gradient {
+  background: linear-gradient(100deg, var(--chart-1), var(--chart-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@font-face { font-family: "Plus Jakarta Sans Variable"; font-style: normal; font-display: swap; font-weight: 200 800; src: url("../assets/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2-variations"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Plus Jakarta Sans Variable"; font-style: normal; font-display: swap; font-weight: 200 800; src: url("../assets/plus-jakarta-sans-latin-ext-wght-normal.woff2") format("woff2-variations"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+html, body { background: var(--background); }
+@media (max-width: 640px) {
+  .container { padding-inline: 1rem; }
+}
+
+@font-face { font-family: "DM Serif Display"; font-style: normal; font-display: swap; font-weight: 400; src: url("../assets/dm-serif-display-latin-400-normal.woff2") format("woff2"); }

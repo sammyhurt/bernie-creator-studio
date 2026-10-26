@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /tiktok
+Allow: /terms/
+Allow: /privacy/
+Allow: /kit/
+Allow: /links/
+Allow: /fonts/
+Disallow: /
