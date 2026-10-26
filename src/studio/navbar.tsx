@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/utility/theme-toggle";
 import { cn } from "@/lib/utils";
 
-import { PaletteSwitch } from "./palette";
 import { TABS, type TabId } from "./tabs";
 import { Wordmark } from "./wordmark";
 
@@ -105,7 +104,6 @@ export default function StudioNavbar({
               <Lightbulb className="size-4" /> <span className="hidden xl:inline">Suggest</span>
             </Button>
           ) : null}
-          <PaletteSwitch />
           <ThemeToggle />
           {onLock ? (
             <Button size="sm" variant="ghost" className="rounded-full px-3" onClick={onLock}>
@@ -118,7 +116,6 @@ export default function StudioNavbar({
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <PaletteSwitch />
           <ThemeToggle />
           <button
             className="text-muted-foreground relative flex size-8 rounded-sm border"

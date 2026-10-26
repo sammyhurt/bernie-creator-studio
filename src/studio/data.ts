@@ -43,7 +43,7 @@ export interface LinkStats {
   after_post: { id: string; title: string; posted_at: string; url: string; visits: number; taps: number; partial: boolean; ratio: number | null }[];
   base_per_day: number; video_taps_30d: number; kit_taps_30d: number; has_data: boolean;
 }
-export interface LinksData { page_url: string; bio: string; theme: string; kit_show: boolean; tracking_since: string; items: LinkItem[]; stats: LinkStats }
+export interface LinksData { page_url: string; bio: string; kit_show: boolean; tracking_since: string; items: LinkItem[]; stats: LinkStats }
 export type Platform = "tiktok" | "instagram" | "both";
 export type Look = "beige" | "navy" | "photo";
 export interface CarouselSlide { kicker: string; title: string; body: string; photo: string; source: string; check: string; photo_key: string }
@@ -304,7 +304,7 @@ export const toLinks = (v: unknown): LinksData | null => {
   const st = (b.stats && typeof b.stats === "object" ? b.stats : {}) as Record<string, unknown>;
   return {
     page_url: /^https:\/\//.test(str(b.page_url)) ? str(b.page_url) : LINK_PAGE_URL,
-    bio: str(b.bio), theme: str(b.theme) || "pop", kit_show: !!b.kit_show, tracking_since: str(b.tracking_since),
+    bio: str(b.bio), kit_show: !!b.kit_show, tracking_since: str(b.tracking_since),
     items: arrOf(b.items, toLink).filter((x) => x.id).sort((a, c) => a.sort - c.sort),
     stats: {
       w7: win(st.w7), w30: win(st.w30), prev7: win(st.prev7),

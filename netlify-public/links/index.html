@@ -7,11 +7,11 @@
 <meta name="description" content="Bernie Brice: NYC and Brooklyn lifestyle creator. My latest video, my links, and work with me.">
 <meta property="og:title" content="Bernie Brice">
 <meta property="og:description" content="Brooklyn · NYC · Fashion and fun.">
-<meta name="theme-color" content="#0049B7">
+<meta name="theme-color" content="#042A2B">
 <link rel="preload" href="../fonts/dm-serif-display-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"DM Serif Display";src:url("../fonts/dm-serif-display-400.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--navy:#0049B7;--teal:#E5154F;--sky:#CFF7FF;--beige:#F7F9FF;--sand:#FFF9D6;--white:#fff;--ink:#2C3E66}
+:root{--navy:#042A2B;--teal:#0A8A8A;--sky:#CDE9EE;--beige:#FCFCFC;--sand:#FBF6D6;--white:#fff;--ink:#2E4E4F}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
@@ -137,10 +137,8 @@ h1{font:400 34px/1.05 "DM Serif Display",Georgia,"Times New Roman",serif;margin:
     a.addEventListener("click", function () { tap(id != null ? id : x.id); });
     return a;
   }
-  var THEMES = {"pop": {"--navy": "#0049B7", "--teal": "#E5154F", "--sky": "#CFF7FF", "--beige": "#F7F9FF", "--sand": "#FFF9D6", "--ink": "#2C3E66"}, "sea": {"--navy": "#042A2B", "--teal": "#0A8A8A", "--sky": "#CDE9EE", "--beige": "#FCFCFC", "--sand": "#FBF6D6", "--ink": "#2E4E4F"}, "classic": {"--navy": "#2F4156", "--teal": "#567C8D", "--sky": "#C8D9E6", "--beige": "#F5EFEB", "--sand": "#EDE5DF", "--ink": "#3D5168"}};
   function render(d) {
     var p = d.profile || {};
-    var th = THEMES[p.theme] || null; if (th) Object.keys(th).forEach(function (k) { document.documentElement.style.setProperty(k, th[k]); });
     document.getElementById("name").textContent = p.name || "Bernie Brice";
     document.getElementById("handle").textContent = p.handle || "@LLiLBiLL";
     document.getElementById("bio").textContent = p.bio || "";

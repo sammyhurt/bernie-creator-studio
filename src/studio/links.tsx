@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 
 import { CopyButton, Field, Modal, Pill, Spinner, useAction, useToast } from "./bits";
 import { LINK_PAGE_URL, type Deal, type LinkItem, type LinkKind, type LinksData } from "./data";
-import { PALETTES } from "./palette";
 import { useStudio } from "./store";
 import { Empty, Panel, Stat } from "./ui";
 
@@ -214,29 +213,6 @@ export function LinkPagePanel() {
               {busy === "bio" ? <Spinner /> : null} Save
             </Button>
           </form>
-          <div className="grid gap-1.5">
-            <span className="text-sm font-medium">Link page colors</span>
-            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Link page colors">
-              {PALETTES.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={(L.theme || "pop") === p.id}
-                  disabled={busy === "theme"}
-                  onClick={() => void run("theme", () => s.saveLinkSettings({ link_theme: p.id }), `Link page set to ${p.label}`)}
-                  className={cn("flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm", (L.theme || "pop") === p.id ? "border-primary font-semibold" : "border-border")}
-                >
-                  <span className="flex -space-x-1">
-                    {p.swatches.slice(0, 4).map((c) => (
-                      <span key={c} className="ring-background size-3 rounded-full ring-2" style={{ background: c }} />
-                    ))}
-                  </span>
-                  {p.label}
-                </button>
-              ))}
-            </div>
-          </div>
           <label className="flex items-start gap-2 text-sm">
             <input
               type="checkbox"
