@@ -36,7 +36,18 @@ function GroupRow({ g, tone }: { g: GroupStat; tone: "ok" | "warn" | "accent" })
 
 export function VerdictPill({ p }: { p: ScoredPost }) {
   const sc = scoreOf(p);
-  if (!sc) return <Pill>{ageH(p.posted_at) < 20 ? "Scoring at 24 h" : "Not enough history"}</Pill>;
+  if (!sc) {
+    const h = ageH(p.posted_at);
+    if (h < 24) return <Pill>Scoring at 24 h</Pill>;
+    if (p.a7)
+      return (
+        <span title="Measured at 7 days. Wins and misses start once 5 posts have a 7-day read, so posts are compared fairly.">
+          <Pill>Early read</Pill>
+        </span>
+      );
+    if (!p.lifetime && h < 7 * 24 * 1.3) return <Pill>Scoring at 7 days</Pill>;
+    return <Pill>Not enough history</Pill>;
+  }
   if (p.verdict === "win") return <Pill tone="ok">Win · {x(sc)}</Pill>;
   if (p.verdict === "miss") return <Pill tone="warn">Miss · {x(sc)}</Pill>;
   return <Pill tone="accent">Normal · {x(sc)}</Pill>;
@@ -216,6 +227,7 @@ function PostRow({ p }: { p: ScoredPost }) {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState(p.note);
   const { busy, run } = useAction();
+  const measured = useEngine().data?.measured || { d7: 0, h24: 0, need: 5 };
   const tags = [p.tags.hook, p.tags.format, p.tags.pillar].filter(Boolean);
   const young = ageH(p.posted_at) < 40;
   return (
@@ -235,7 +247,7 @@ function PostRow({ p }: { p: ScoredPost }) {
           </div>
         </div>
         <span className="hidden text-right text-sm tabular-nums md:block">{compact(p.views)}</span>
-        <span className="text-muted-foreground hidden text-right text-xs tabular-nums md:block">{p.lifetime ? "older post" : p.v24 ? compact(p.v24) + " in 24 h" : "—"}</span>
+        <span className="text-muted-foreground hidden text-right text-xs tabular-nums md:block">{p.lifetime ? "older post" : p.a7 ? compact(p.v7) + " at " + Math.round(p.a7 / 24) + " d" : p.a24 ? compact(p.v24) + " at " + Math.round(p.a24) + " h" : ageH(p.posted_at) < 24 ? "—" : "not measured"}</span>
         <span className="hidden md:block">
           <VerdictPill p={p} />
         </span>
@@ -247,8 +259,8 @@ function PostRow({ p }: { p: ScoredPost }) {
         <div className="bg-muted/40 mb-3 grid gap-3 rounded-xl p-3 md:ml-14">
           <p className="text-muted-foreground text-xs">
             {p.lifetime
-              ? "This post is from before the Studio tracked it, so it is scored on its total views."
-              : `Your normal when this went up: ${p.base24 ? compact(p.base24) + " views at 24 h" : "not enough posts yet"}${p.base7 ? `, ${compact(p.base7)} at 7 days` : ""}.`}
+              ? "The Studio did not read this post at 7 days, so it is compared with your other older posts on total views."
+              : `${p.a24 ? `${compact(p.v24)} views at ${Math.round(p.a24)} hours. ` : ""}${p.a7 ? `${compact(p.v7)} views at ${Math.round(p.a7 / 24)} days. ` : ""}Your normal: ${p.base7 ? compact(p.base7) + " views at 7 days" : p.base24 ? compact(p.base24) + " views at 24 h" : `set after ${measured.need} posts are measured (${Math.min(measured.need, measured.d7)} so far)`}.`}
             {p.share_rate ? ` ${p.share_rate} shares and ${p.comment_rate} comments per 1,000 views.` : ""}
           </p>
           <label className="grid gap-1.5 text-sm font-medium">
@@ -319,7 +331,7 @@ function PostsPanel() {
             <span />
             <span>Post</span>
             <span className="text-right">Views</span>
-            <span className="text-right">First day</span>
+            <span className="text-right">Measured</span>
             <span>Result</span>
             <span className="w-8" />
           </div>
@@ -383,11 +395,11 @@ export function ResultsPanel() {
                       <Stat label={`Posts · goal ${w.goal}`} value={w.posts} />
                       <Stat label="New followers" value={signed(w.followers_gained)} />
                       <Stat label="Followers now" value={n(w.followers)} />
-                      <Stat label={`Views · normal ${compact(w.normal_week)}`} value={compact(w.views)} />
+                      <Stat label={w.normal_week ? `Views · normal ${compact(w.normal_week)}` : "Views so far"} value={compact(w.views)} />
                     </div>
                     {w.best ? (
                       <p className="text-sm">
-                        <span className="font-semibold">Best post:</span> {w.best.title} ({x(w.best.score)} your normal{w.best.score < 1 ? ", a slow week" : ""}).{" "}
+                        <span className="font-semibold">Best post:</span> {w.best.title} ({w.best.score > 0 ? <>{x(w.best.score)} your normal{w.best.score < 1 ? ", a slow week" : ""}</> : <>{n(w.best.views)} views so far</>}).{" "}
                         {w.best.score >= 1 ? <span className="text-muted-foreground">{pb?.best_why}</span> : null}
                       </p>
                     ) : w.only ? (

@@ -149,7 +149,7 @@ export function BrandRadarPanel() {
   return (
     <Panel eyebrow={`Brand radar${fresh.length ? ` · ${fresh.length} new` : ""}`} pattern="wave" className="lg:col-span-6" action={<UsersGroup className="text-chart-1 size-5" />}>
       <p className="text-muted-foreground max-w-[75ch] text-sm">
-        Brands seen paying or gifting your inspiration creators and NYC menswear creators, from their public posts. Checked every Sunday. Contact details are never collected: use the brand's own partnerships page or email, then the Pitch writer above.
+        Brands seen in sponsored, gifted or partner posts by your inspiration creators and NYC menswear creators, from their public posts. That shows a collaboration, not what was paid. Checked every Sunday. Contact details are never collected: use the brand's own partnerships page or email, then the Pitch writer above.
       </p>
       {!e.data ? (
         <Skeleton className="h-40" />
@@ -206,7 +206,7 @@ const cells = (line: string, sep: string) => {
   out.push(cur);
   return out.map((x) => x.trim());
 };
-export function parseEarningsCsv(text: string): { rows: Partial<Earning>[]; cols: { date: string; amount: string; source: string; note: string } | null } {
+export function parseEarningsCsv(text: string): { rows: Partial<Earning>[]; cols: { date: string; amount: string; source: string; note: string; ref: string } | null } {
   const lines = text.replace(/^﻿/, "").split(/\r?\n/).filter((l) => l.trim());
   if (lines.length < 2) return { rows: [], cols: null };
   const sep = (lines[0].match(/;/g) || []).length > (lines[0].match(/,/g) || []).length ? ";" : lines[0].includes("\t") ? "\t" : ",";
@@ -216,9 +216,10 @@ export function parseEarningsCsv(text: string): { rows: Partial<Earning>[]; cols
   const ai = find(/amount|earning|revenue|payout|commission|total|income|net|usd|\$/, /rate|count|clicks|orders|items|qty/);
   const si = find(/brand|source|merchant|program|platform|store|advertiser|retailer/);
   const ni = find(/note|description|product|item|title|name/);
+  const ri = find(/transaction|reference|\bref\b|order id|order_id|order number|payment id|payout id|invoice|\bid\b/, /video|product|item|sku/);
   if (di < 0 || ai < 0) return { rows: [], cols: null };
-  const rows = lines.slice(1, 501).map((l) => cells(l, sep)).map((c) => ({ date: toYmd(c[di] || ""), amount: money(c[ai] || ""), source: si >= 0 ? (c[si] || "").slice(0, 60) : "", note: ni >= 0 ? (c[ni] || "").slice(0, 200) : "" })).filter((r) => r.date && r.amount);
-  return { rows, cols: { date: head[di], amount: head[ai], source: si >= 0 ? head[si] : "", note: ni >= 0 ? head[ni] : "" } };
+  const rows = lines.slice(1, 501).map((l) => cells(l, sep)).map((c) => ({ date: toYmd(c[di] || ""), amount: money(c[ai] || ""), source: si >= 0 ? (c[si] || "").slice(0, 60) : "", note: ni >= 0 ? (c[ni] || "").slice(0, 200) : "", ref: ri >= 0 ? (c[ri] || "").slice(0, 80) : "" })).filter((r) => r.date && r.amount);
+  return { rows, cols: { date: head[di], amount: head[ai], source: si >= 0 ? head[si] : "", note: ni >= 0 ? head[ni] : "", ref: ri >= 0 ? head[ri] : "" } };
 }
 
 function CsvImport() {
@@ -260,7 +261,8 @@ function CsvImport() {
         <div className="border-chart-1/30 bg-chart-1/5 grid gap-3 rounded-xl border p-4">
           <p className="text-sm">
             <span className="font-semibold">{name}:</span> {parsed.rows.length} rows, {usd(total, true)} total. Using “{parsed.cols.date}” for the date and “{parsed.cols.amount}” for the amount
-            {parsed.cols.source ? `, “${parsed.cols.source}” for the source` : ""}.
+            {parsed.cols.source ? `, “${parsed.cols.source}” for the source` : ""}
+            {parsed.cols.ref ? `, “${parsed.cols.ref}” to spot payments already added` : ""}.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Where it came from" hint={parsed.cols.source ? "Only used where the file has no source." : undefined}>
@@ -317,9 +319,11 @@ function AddEarning() {
         ev.preventDefault();
         if (!money(f.amount)) return;
         void run("add", async () => {
-          const r = await engine.addEarnings([{ ...f, amount: money(f.amount), source: f.source.trim() || "Manual" }]);
+          const row = { ...f, amount: money(f.amount), source: f.source.trim() || "Manual" };
+          let r = await engine.addEarnings([row]);
+          if (!r.added && window.confirm("You already have a payment with the same date, amount and source. Add this one as a separate payment?")) r = await engine.addEarnings([row], "", true);
           setF({ ...f, source: "", amount: "", note: "", video_id: "" });
-          toast(r.added ? "Added" : "That one is already in your earnings");
+          toast(r.added ? "Added" : "Not added, it was already in your earnings");
         });
       }}
     >
@@ -413,6 +417,7 @@ export function EarningsPanel() {
                     <span className="text-muted-foreground text-xs">
                       {r.date} · {KIND_LABEL[r.kind]}
                       {r.note ? ` · ${r.note.slice(0, 40)}` : ""}
+                      {r.matched_deal ? " · counts as your Paid deal" : ""}
                     </span>
                   </span>
                   <span className="flex shrink-0 items-center gap-1 tabular-nums">

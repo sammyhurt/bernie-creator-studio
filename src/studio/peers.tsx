@@ -72,7 +72,7 @@ export function PeersPanel() {
         <>
           {pe.dip ? (
             <p className="rounded-lg bg-amber-500/10 p-3 text-sm">
-              <span className="font-semibold">It's not just you.</span> {pe.falling} of {list.length} of your inspiration creators saw their typical views drop 20% or more this week. A quiet week across the board usually means TikTok, not your content.
+              <span className="font-semibold">It's not just you.</span> {pe.falling} of the {pe.compared} inspiration creators you follow saw their typical views drop 20% or more since last week. That can point to a slower week on TikTok, but {pe.compared} creators is a small sample, not proof.
             </p>
           ) : null}
           <p className="text-sm">
@@ -113,7 +113,7 @@ export function PeersPanel() {
               </div>
             </div>
           ) : null}
-          <p className="text-muted-foreground text-xs">Public numbers only, from their latest 15 posts. They are bigger accounts, so compare views per follower and posting pace, not raw views. Learn from the format, never copy the words.</p>
+          <p className="text-muted-foreground text-xs">Public numbers only, from their latest 15 posts. {pe.compare_run ? `Weekly change compares with ${shortDate(pe.compare_run.length === 16 ? pe.compare_run + ":00Z" : pe.compare_run)}.` : "Weekly change starts once a run from a week ago exists."} They are bigger accounts, so compare views per follower and posting pace, not raw views. Learn from the format, never copy the words.</p>
         </>
       ) : (
         <Empty>The first comparison with the creators you follow for inspiration arrives after Sunday's research run, or tap “Check now” (about 7 minutes).</Empty>
