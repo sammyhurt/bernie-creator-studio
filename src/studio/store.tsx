@@ -96,7 +96,7 @@ export function useStudio() {
       return row;
     },
 
-    /** Writes a new carousel from her words, her facts and her Studio data (30–45 seconds). */
+    /** Writes a new carousel from his words, his facts and his Studio data (30–45 seconds). */
     async draftCarousel(input: { topic: string; facts: string; kind: string; feel: string; count: number; platform: Platform; seed_label?: string; seed_text?: string }) {
       const r = await studioPost<{ carousel: Record<string, unknown> }>(CAROUSEL_URL, { action: "draft", ...input });
       const c = toCarousel(r.carousel || {});
@@ -136,7 +136,7 @@ export function useStudio() {
       c.goto("carousels");
     },
 
-    /** Adds or edits one link on her link page. Keeps its tap counts on screen. */
+    /** Adds or edits one link on his link page. Keeps its tap counts on screen. */
     async saveLink(link: Partial<LinkItem> & { title: string; url: string }) {
       const r = await studioPost<{ rows: Record<string, unknown>[] }>(LINKS_MANAGE_URL, { action: "save", id: link.id || 0, title: link.title, url: link.url, grp: link.grp || "", kind: link.kind || "link", note: link.note || "", deal_id: link.deal_id || 0, video_id: link.video_id || "", sponsored: !!link.sponsored, active: link.active !== false });
       const row = (r.rows || []).map(toLink).find((x) => x.id);
@@ -171,7 +171,7 @@ export function useStudio() {
       mutate((d) => (d.links ? { ...d, links: { ...d.links, bio: patch.link_bio ?? d.links.bio, kit_show: patch.kit_show_links ?? d.links.kit_show } } : d));
     },
 
-    /** Pulls in TikTok links she pasted (up to 10 at a time). */
+    /** Pulls in TikTok links he pasted (up to 10 at a time). */
     async addSaved(text: string, collection: string, note: string) {
       const r = await studioPost<{ rows: Record<string, unknown>[]; skipped: number; failed: number }>(SAVED_URL, { action: "add", text, collection, note });
       const rows = (r.rows || []).map(toSaved).filter((x) => x.id);

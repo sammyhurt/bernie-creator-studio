@@ -193,7 +193,7 @@ export function InsightsPanel({ d }: { d: StudioData | null }) {
                           <VideoRow v={v} />
                           <span className="ml-[68px] -mt-1 flex flex-wrap items-center gap-2">
                             <span className="text-chart-1 dark:text-chart-1 text-xs font-semibold">{v.ratio}× your typical video</span>
-                            <CarouselButton size="xs" variant="ghost" topic={`Part 2 of my video "${cleanTitle(v.title)}"`} label={`Part 2 of your video (${compact(v.views)} views)`} text={`His video "${cleanTitle(v.title)}" got ${n(v.views)} views, ${v.ratio}× her typical video. Part 2 should continue it, answer what viewers wanted next.`}>
+                            <CarouselButton size="xs" variant="ghost" topic={`Part 2 of my video "${cleanTitle(v.title)}"`} label={`Part 2 of your video (${compact(v.views)} views)`} text={`His video "${cleanTitle(v.title)}" got ${n(v.views)} views, ${v.ratio}× his typical video. Part 2 should continue it, answer what viewers wanted next.`}>
                               Part 2 carousel
                             </CarouselButton>
                           </span>

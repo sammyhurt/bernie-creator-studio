@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Campaign report · Bernie Brice</title>
+<meta name="description" content="Live results for a sponsored TikTok by Bernie Brice (@LLiLBiLL).">
+<meta name="theme-color" content="#042A2B">
+<link rel="preload" href="../fonts/dm-serif-display-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"DM Serif Display";src:url("../fonts/dm-serif-display-400.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--navy:#042A2B;--teal:#0A8A8A;--sea:#21C3B4;--sky:#CDE9EE;--paper:#FCFCFC;--sand:#FBF6D6;--white:#fff;--ink:#2E4E4F;--line:rgba(4,42,43,.12)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--navy);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+main{max-width:760px;margin:0 auto;padding:28px 16px calc(48px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink)}
+.live:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sea);box-shadow:0 0 0 3px rgba(33,195,180,.2)}
+h1{font:400 clamp(32px,6vw,48px)/1.05 "DM Serif Display",Georgia,"Times New Roman",serif;margin:14px 0 6px;letter-spacing:-.01em}
+.sub{margin:0;color:var(--ink);font-size:15px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:18px}
+.video{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:center}
+.cover{width:120px;aspect-ratio:3/4;border-radius:16px;background:var(--sky) center/cover no-repeat;display:block}
+.vt{font-weight:650;font-size:17px;line-height:1.3;margin:0}
+.vm{color:var(--ink);font-size:14px;margin:6px 0 12px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:650;font-size:14px;padding:10px 16px;border-radius:999px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{background:var(--paper);border-radius:14px;padding:14px}
+.n{font:400 30px/1 "DM Serif Display",Georgia,serif;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.l{margin-top:6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:700}
+.hero{background:var(--navy);color:#fff;border:0}
+.hero .n{font-size:48px}
+.hero .l{color:var(--sky)}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.note{background:var(--sand);border-radius:14px;padding:12px 14px;font-size:14px;margin-top:12px}
+svg.curve{width:100%;height:120px;display:block;margin-top:10px}
+.foot{color:var(--ink);font-size:12px;margin-top:24px;text-align:center}
+.msg{text-align:center;padding:80px 16px;color:var(--ink)}
+.skel{background:linear-gradient(90deg,#e6eeee,#f4f8f8,#e6eeee);background-size:200% 100%;animation:s 1.4s infinite;border-radius:22px;height:180px;margin-top:18px}
+@keyframes s{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.skel{animation:none}}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.video{grid-template-columns:88px minmax(0,1fr);gap:14px}.cover{width:88px}.row{grid-template-columns:1fr}.hero .n{font-size:40px}}
+</style>
+</head>
+<body>
+<main id="app">
+  <div class="top"><span class="eyebrow">Campaign report</span><span class="live" id="updated">Loading live numbers…</span></div>
+  <h1 id="title">Bernie Brice</h1>
+  <p class="sub" id="sub">@LLiLBiLL on TikTok</p>
+  <div class="skel" id="skel"></div>
+  <div id="body" hidden>
+    <section class="card video" aria-label="The video">
+      <a class="cover" id="cover" target="_blank" rel="noopener noreferrer" aria-label="Watch on TikTok"></a>
+      <div>
+        <p class="vt" id="vt"></p>
+        <p class="vm" id="vm"></p>
+        <a class="btn" id="watch" target="_blank" rel="noopener noreferrer">Watch on TikTok
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </section>
+    <section class="card hero" aria-label="Views">
+      <div class="n" id="views">0</div><div class="l">Views so far</div>
+      <div class="note" id="vs" hidden style="background:rgba(255,255,255,.1);color:#fff"></div>
+      <svg class="curve" id="curve" hidden viewBox="0 0 300 120" preserveAspectRatio="none" role="img"></svg>
+    </section>
+    <section class="card" aria-label="Engagement">
+      <div class="stats">
+        <div class="stat"><div class="n" id="likes">0</div><div class="l">Likes</div></div>
+        <div class="stat"><div class="n" id="comments">0</div><div class="l">Comments</div></div>
+        <div class="stat"><div class="n" id="shares">0</div><div class="l">Shares</div></div>
+        <div class="stat"><div class="n" id="er">0%</div><div class="l">Engagement</div></div>
+      </div>
+      <div class="row">
+        <div class="stat"><div class="n" id="v24">—</div><div class="l">Views in first 24 h</div></div>
+        <div class="stat"><div class="n" id="v7">—</div><div class="l">Views in first 7 days</div></div>
+        <div class="stat"><div class="n" id="taps">—</div><div class="l" id="tapsL">Link taps</div></div>
+      </div>
+      <p class="note" id="deliv" hidden></p>
+    </section>
+  </div>
+  <p class="msg" id="err" hidden></p>
+  <p class="foot">Live public numbers from TikTok, refreshed every 3 hours. Shared privately by Bernie Brice. Engagement = (likes + comments + shares) ÷ views.</p>
+</main>
+<script>
+(function () {
+  "use strict";
+  var API = "https://subletlyco.app.n8n.cloud/webhook/bcs-report";
+  var k = (new URLSearchParams(location.search).get("k") || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 24);
+  var $ = function (id) { return document.getElementById(id); };
+  var nf = new Intl.NumberFormat("en-US");
+  var cf = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+  var big = function (v) { v = Number(v) || 0; return v >= 100000 ? cf.format(v) : nf.format(v); };
+  var day = function (iso) { var t = Date.parse(iso); return isFinite(t) ? new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : ""; };
+  var when = function (iso) { var t = Date.parse(iso); return isFinite(t) ? "Updated " + new Date(t).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "Live"; };
+  function fail(text) { $("skel").hidden = true; $("body").hidden = true; $("err").hidden = false; $("err").textContent = text; $("updated").textContent = ""; }
+  if (k.length !== 24) { fail("This report link is incomplete. Ask Bernie for the full link."); return; }
+  fetch(API + "?k=" + encodeURIComponent(k), { cache: "no-store" }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); }).then(function (d) {
+    if (!d || !d.ok || !d.video) { fail("This report link is not active. Ask Bernie for a fresh one."); return; }
+    var v = d.video;
+    $("title").textContent = (d.brand ? d.brand + " × " : "") + "Bernie Brice";
+    $("sub").textContent = "@LLiLBiLL on TikTok" + (d.creator && d.creator.followers ? " · " + nf.format(d.creator.followers) + " followers" : "");
+    document.title = "Campaign report · " + (d.brand ? d.brand + " × " : "") + "Bernie Brice";
+    $("updated").textContent = when(d.updated_at);
+    var url = /^https:\/\/(www\.)?tiktok\.com\//.test(v.url || "") ? v.url : "https://www.tiktok.com/@llilbill";
+    $("watch").href = url; $("cover").href = url;
+    if (/^https:\/\//.test(v.cover || "")) {
+      var img = new Image(); img.onload = function () { $("cover").style.backgroundImage = "url(\"" + v.cover.replace(/"/g, "%22") + "\")"; }; img.src = v.cover;
+    }
+    $("vt").textContent = v.title || "Sponsored TikTok";
+    $("vm").textContent = v.posted_at ? "Posted " + day(v.posted_at) : "";
+    $("views").textContent = big(v.views);
+    $("likes").textContent = big(v.likes); $("comments").textContent = big(v.comments); $("shares").textContent = big(v.shares);
+    $("er").textContent = (Number(v.er) || 0) + "%";
+    $("v24").textContent = v.views_24h ? big(v.views_24h) : "—";
+    $("v7").textContent = v.views_7d ? big(v.views_7d) : (v.posted_at && Date.now() - Date.parse(v.posted_at) < 7 * 864e5 ? "Day " + Math.max(1, Math.ceil((Date.now() - Date.parse(v.posted_at)) / 864e5)) : "—");
+    if (d.links && d.links.has) { $("taps").textContent = nf.format(d.links.taps || 0); $("tapsL").textContent = "Link taps · " + nf.format(d.links.people || 0) + " people"; }
+    else { $("taps").textContent = "—"; $("tapsL").textContent = "Link taps (no link set)"; }
+    if (v.vs_normal && v.vs_normal >= 1.2) { $("vs").hidden = false; $("vs").textContent = v.vs_normal + "× the views of Bernie's typical video."; }
+    if (d.deliverables) { $("deliv").hidden = false; $("deliv").textContent = "Deliverables: " + d.deliverables; }
+    var c = (d.curve || []).filter(function (p) { return p && isFinite(p.h) && isFinite(p.views); });
+    if (c.length >= 3) {
+      var maxH = Math.max.apply(null, c.map(function (p) { return p.h; })) || 1, maxV = Math.max.apply(null, c.map(function (p) { return p.views; })) || 1;
+      var pts = [[0, 120]].concat(c.map(function (p) { return [p.h / maxH * 300, 116 - p.views / maxV * 104]; }));
+      var line = pts.map(function (p, i) { return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
+      var svg = $("curve"); svg.removeAttribute("hidden");
+      svg.setAttribute("aria-label", "Views over the first " + Math.round(maxH / 24) + " days, reaching " + nf.format(c[c.length - 1].views));
+      svg.innerHTML = '<path d="' + line + ' L300 120 Z" fill="rgba(33,195,180,.18)"/><path d="' + line + '" fill="none" stroke="#21C3B4" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>';
+    }
+    $("skel").hidden = true; $("body").hidden = false;
+  }).catch(function () { fail("Couldn't load the numbers just now. Refresh in a minute."); });
+})();
+</script>
+</body>
+</html>

@@ -89,7 +89,7 @@ function SavedCard({ v, onScript, writing }: { v: SavedVideo; onScript: (v: Save
           <Button size="xs" className="rounded-full px-2.5" disabled={writing} onClick={() => onScript(v)}>
             Script my version
           </Button>
-          <CarouselButton size="xs" topic={v.your_version || `My own version of a TikTok I saved${v.author ? ` from @${v.author}` : ""}`} label={`A TikTok you saved${v.author ? ` (@${v.author})` : ""}, inspired not copied`} text={[v.caption ? `Their caption: ${v.caption}` : "", v.why ? `Why it worked: ${v.why}` : "", v.note ? `Her note: ${v.note}` : ""].filter(Boolean).join(" ")}>
+          <CarouselButton size="xs" topic={v.your_version || `My own version of a TikTok I saved${v.author ? ` from @${v.author}` : ""}`} label={`A TikTok you saved${v.author ? ` (@${v.author})` : ""}, inspired not copied`} text={[v.caption ? `Their caption: ${v.caption}` : "", v.why ? `Why it worked: ${v.why}` : "", v.note ? `His note: ${v.note}` : ""].filter(Boolean).join(" ")}>
             Carousel
           </CarouselButton>
           <label className="border-border hover:bg-muted inline-flex h-6 cursor-pointer items-center gap-1.5 rounded-full border px-2.5 text-xs font-medium">
@@ -117,7 +117,7 @@ function SavedCard({ v, onScript, writing }: { v: SavedVideo; onScript: (v: Save
   );
 }
 
-/** Trends tab: TikToks she saved in her collections, pasted in as links, turned into her own ideas. */
+/** Trends tab: TikToks he saved in his collections, pasted in as links, turned into his own ideas. */
 export function SavedIdeasPanel({ onScript, writing }: { onScript: (topic: string) => void; writing: boolean }) {
   const s = useStudio();
   const toast = useToast();

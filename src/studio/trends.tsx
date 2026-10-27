@@ -8,6 +8,7 @@ import { Pill, nyDay } from "./bits";
 import { useScriptFlow } from "./create";
 import type { RadarItem } from "./data";
 import StudioHero from "./hero";
+import { PeersPanel } from "./peers";
 import { SavedIdeasPanel } from "./saved";
 import { SearchInsightsPanels } from "./search";
 import { compact, shortDate } from "./insights";
@@ -40,14 +41,14 @@ export function TrendsPanel() {
   const insp = radar.filter((r) => r.kind === "inspiration").sort((a, b) => b.ratio - a.ratio);
   const comments = radar.filter((r) => r.kind === "comment");
   const scriptTrend = (t: RadarItem) => void flow.write({ topic: `His own take on the trend "${t.title}". How to use it: ${t.how_to_use}` });
-  const scriptInsp = (t: RadarItem) => void flow.write({ topic: `His own original version of a format that worked for ${t.source} ("${t.title}"), made from his life, not copied. Why it worked: ${t.why} How she can use it: ${t.how_to_use}` });
+  const scriptInsp = (t: RadarItem) => void flow.write({ topic: `His own original version of a format that worked for ${t.source} ("${t.title}"), made from his life, not copied. Why it worked: ${t.why} How he can use it: ${t.how_to_use}` });
 
   return (
     <>
       <StudioHero
         eyebrow="Trends"
         title="What's rising and what people search"
-        lead={radar.length ? `${runLabel(d?.radar_at)}. Trend radar checks fashion, coffee, couple and NYC TikTok every Sunday and Wednesday morning.` : "Trend radar checks fashion, coffee, couple and NYC TikTok every Sunday and Wednesday morning."}
+        lead={radar.length ? `${runLabel(d?.radar_at)}. Trend radar checks menswear, fit check, couple and NYC TikTok every Sunday and Wednesday morning.` : "Trend radar checks menswear, fit check, couple and NYC TikTok every Sunday and Wednesday morning."}
       />
       <section className="pb-12 md:pb-16 lg:pb-24">
         <div className="container">
@@ -58,6 +59,7 @@ export function TrendsPanel() {
               <Panel eyebrow="First run coming" pattern="dots" className="lg:col-span-6">
                 <Empty>The first trend report lands after the next Sunday or Wednesday run, around 7:45 AM.</Empty>
               </Panel>
+              <PeersPanel />
               <SavedIdeasPanel writing={flow.writing} onScript={(topic) => void flow.write({ topic })} />
               <SearchInsightsPanels writing={flow.writing} onScript={(topic, hook) => void flow.write({ topic, hook: hook || undefined })} />
             </Grid>
@@ -70,6 +72,7 @@ export function TrendsPanel() {
                 </Panel>
               ) : null}
 
+              <PeersPanel />
               <SavedIdeasPanel writing={flow.writing} onScript={(topic) => void flow.write({ topic })} />
               <SearchInsightsPanels writing={flow.writing} onScript={(topic, hook) => void flow.write({ topic, hook: hook || undefined })} />
 
@@ -139,7 +142,7 @@ export function TrendsPanel() {
                           <Button size="sm" variant="outline" className="rounded-full px-3" disabled={flow.writing} onClick={() => scriptInsp(t)}>
                             Script my version
                           </Button>
-                          <CarouselButton topic={t.how_to_use || `My own version of "${t.title}"`} label={`Inspired by ${t.source} (not copied)`} text={`Format that worked for ${t.source}: "${t.title}". Why it worked: ${t.why}. Make it from her own life, never copy their words.`} />
+                          <CarouselButton topic={t.how_to_use || `My own version of "${t.title}"`} label={`Inspired by ${t.source} (not copied)`} text={`Format that worked for ${t.source}: "${t.title}". Why it worked: ${t.why}. Make it from his own life, never copy their words.`} />
                         </div>
                       </li>
                     ))}

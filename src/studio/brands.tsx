@@ -15,6 +15,7 @@ import { KIT_URL, type Deal, type DealStatus } from "./data";
 import StudioHero from "./hero";
 import { compact, n, shortDate } from "./insights";
 import { DealLinks, LinkPagePanel } from "./links";
+import { BrandRadarPanel, EarningsPanel, RateCardPanel, ReportLinksPanel } from "./money";
 import { useStudio } from "./store";
 import { Empty, Grid, Panel, Skeleton, Stat } from "./ui";
 
@@ -40,7 +41,7 @@ function DealModal({ deal, onClose }: { deal: Partial<Deal> | null; onClose: () 
       >
         <div className="grid grid-cols-2 gap-3">
           <Field label="Brand" className="col-span-2 sm:col-span-1">
-            <Input value={f.brand || ""} onChange={(e) => set("brand")(e.target.value)} required maxLength={80} placeholder="J.Crew" />
+            <Input value={f.brand || ""} onChange={(e) => set("brand")(e.target.value)} required maxLength={80} placeholder="Todd Snyder" />
           </Field>
           <Field label="Stage" className="col-span-2 sm:col-span-1">
             <NativeSelect value={f.status || "Idea"} onChange={set("status")} options={STATUSES.map((x) => ({ value: x, label: `${x} · ${STATUS_HINT[x]}` }))} ariaLabel="Stage" />
@@ -144,7 +145,7 @@ function PitchWriter({ brands }: { brands: string[] }) {
         }}
       >
         <Field label="Brand">
-          <Input value={brand} onChange={(e) => setBrand(e.target.value)} list="mts-brands" placeholder="e.g. J.Crew" maxLength={80} required />
+          <Input value={brand} onChange={(e) => setBrand(e.target.value)} list="mts-brands" placeholder="e.g. Buck Mason" maxLength={80} required />
           <datalist id="mts-brands">
             {brands.map((b) => (
               <option key={b} value={b} />
@@ -196,8 +197,8 @@ export function BrandsPanel() {
   const deals = d?.deals || [];
   const open = deals.filter((x) => x.status !== "Passed");
   const passed = deals.filter((x) => x.status === "Passed");
-  const dream = d?.profile.dream_brands?.length ? d.profile.dream_brands : ["J.Crew", "4–5 star hotels", "Couple and family fashion"];
-  const suggestions = ["J.Crew", "Todd Snyder", "Abercrombie & Fitch", "Uniqlo", "Buck Mason", "Aimé Leon Dore", "Kith", "Nike", "New Balance", "Lululemon", "Vuori", "Equinox", "1 Hotels", "Soho House", ...dream].filter((v, i, a) => a.indexOf(v) === i);
+  const dream = d?.profile.dream_brands?.length ? d.profile.dream_brands : ["Menswear and streetwear", "Fitness and wellness", "NYC restaurants and experiences", "Couple fashion"];
+  const suggestions = ["Todd Snyder", "Abercrombie & Fitch", "Uniqlo", "Buck Mason", "Aimé Leon Dore", "Kith", "Nike", "New Balance", "Lululemon", "Vuori", "Equinox", "1 Hotels", "Soho House", ...dream].filter((v, i, a) => a.indexOf(v) === i);
   const shopLinks = String(d?.profile.shop_links || "")
     .split(/[\s|,;]+/)
     .filter((x) => /^https?:\/\//.test(x));
@@ -234,9 +235,15 @@ export function BrandsPanel() {
                 </div>
               </Panel>
 
+              <RateCardPanel />
+
               <Panel eyebrow="Pitch writer" pattern="wave" className="lg:col-span-3">
                 <PitchWriter brands={suggestions} />
               </Panel>
+
+              <EarningsPanel />
+
+              <BrandRadarPanel />
 
               <LinkPagePanel />
 
@@ -283,6 +290,8 @@ export function BrandsPanel() {
                 ) : null}
               </Panel>
 
+              <ReportLinksPanel />
+
               <Panel eyebrow="Brands that fit you" pattern="dots" className="lg:col-span-3">
                 <div className="flex flex-wrap gap-1.5">
                   {dream.map((b) => (
@@ -296,10 +305,10 @@ export function BrandsPanel() {
                     <span className="font-medium">Start with brands you already wear and visit.</span> A real “I've worn this for years” beats a cold pitch.
                   </li>
                   <li>
-                    <span className="font-medium">Hotels:</span> pitch a couples staycation with 1 TikTok and stories, sent to the hotel's PR or marketing email, not the front desk.
+                    <span className="font-medium">NYC restaurants and experiences:</span> pitch a date-night visit with Meredith (1 TikTok plus stories), sent to their PR or marketing email, not the front desk.
                   </li>
                   <li>
-                    <span className="font-medium">Join TikTok One</span> (TikTok's creator marketplace) so brands searching for NYC couple and fashion creators can find you.
+                    <span className="font-medium">Join TikTok One</span> (TikTok's creator marketplace) so brands searching for NYC menswear and couple creators can find you.
                   </li>
                   <li className="text-muted-foreground">Never pitched: {(d.profile.never_brands?.length ? d.profile.never_brands : ["Target", "Starbucks"]).join(", ")}.</li>
                 </ul>
@@ -331,7 +340,7 @@ export function BrandsPanel() {
                 ) : null}
               </Panel>
 
-              <Panel eyebrow="Before any sponsored post" pattern="lines" className="lg:col-span-6">
+              <Panel eyebrow="Before any sponsored post" pattern="lines" className="lg:col-span-3">
                 <div className="flex items-start gap-3">
                   <Danger className="mt-0.5 size-5 shrink-0 text-amber-600" />
                   <ul className="grid gap-1.5 text-sm">

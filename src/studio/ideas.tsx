@@ -165,7 +165,7 @@ export const TIMES = [
   { value: "21:30", label: "9:30 PM" },
 ];
 
-/** Pick a posting day and time; the suggested time comes from her own best slot. */
+/** Pick a posting day and time; the suggested time comes from his own best slot. */
 export function PlanModal({ idea, onClose }: { idea: Idea | null; onClose: () => void }) {
   const s = useStudio();
   const { busy, run } = useAction();
@@ -270,7 +270,7 @@ export function IdeaCard({ idea, onScript, onHooks, compact = false }: { idea: I
   );
 }
 
-/** Hook Lab: 10 openings for one topic, scored for her audience. */
+/** Hook Lab: 10 openings for one topic, scored for his audience. */
 export function HookLab({ seed, onUse }: { seed: { topic: string; idea?: Idea } | null; onUse: (hook: Hook, topic: string, idea?: Idea) => void }) {
   const s = useStudio();
   const { busy, run } = useAction();

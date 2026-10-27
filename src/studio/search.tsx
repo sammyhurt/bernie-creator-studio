@@ -26,7 +26,7 @@ function Badges({ hot, trend }: { hot: boolean; trend: SearchTrend }) {
   );
 }
 
-/** Trends tab: what people type into TikTok search in her niche, and the phrases worth owning. */
+/** Trends tab: what people type into TikTok search in his niche, and the phrases worth owning. */
 export function SearchInsightsPanels({ onScript, writing }: { onScript: (topic: string, hook: string) => void; writing: boolean }) {
   const s = useStudio();
   const { busy, run } = useAction();

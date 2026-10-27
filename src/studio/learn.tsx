@@ -9,7 +9,7 @@ import { cleanTitle, compact, n, shortDate } from "./insights";
 import { useStudio } from "./store";
 import { Empty } from "./ui";
 
-/** Which hook types and pillars get her the most views (typical views, so one hit can't skew it). */
+/** Which hook types and pillars get him the most views (typical views, so one hit can't skew it). */
 export function WinnersTable({ rows, label }: { rows: Group[]; label: string }) {
   const usable = rows.filter((r) => r.posts >= 2);
   if (!usable.length) return <Empty>Not enough tagged videos yet. Tags are added on each trend radar run.</Empty>;

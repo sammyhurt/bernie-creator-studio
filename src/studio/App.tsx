@@ -13,6 +13,7 @@ import StudioNavbar from "./navbar";
 import { HomePanel } from "./panels";
 import { PlanPanel } from "./plan";
 import { RequestModal } from "./request";
+import { ResultsPanel } from "./results";
 import { StudioProvider } from "./store";
 import { TABS, type TabId } from "./tabs";
 import { TrendsPanel } from "./trends";
@@ -110,6 +111,8 @@ function Studio() {
                 <CreatePanel />
               ) : tab === "carousels" ? (
                 <CarouselsPanel />
+              ) : tab === "results" ? (
+                <ResultsPanel />
               ) : tab === "trends" ? (
                 <TrendsPanel />
               ) : tab === "insights" ? (
