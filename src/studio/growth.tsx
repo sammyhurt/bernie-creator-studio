@@ -103,7 +103,7 @@ export function GrowthPlanView() {
   if (!g) {
     return (
       <Panel eyebrow="Road to 10K" pattern="wave" className="lg:col-span-6">
-        <Road followers={followers} milestones={[{ followers: 5000, title: "5K" }, { followers: 7500, title: "7.5K" }, { followers: GOAL, title: "10K" }]} />
+        <Road followers={followers} milestones={[{ followers: 1000, title: "1K" }, { followers: 2500, title: "2.5K" }, { followers: 5000, title: "5K" }, { followers: GOAL, title: "10K" }]} />
         <p className="max-w-[65ch] text-sm">A step-by-step plan from your own numbers: what to post each day, the series to start, and this week's to-do list. It refreshes every Monday morning, or whenever you tap the button.</p>
         {busy === "make" ? (
           <Working text="Reading your last 90 days of videos and this week's trends, then writing your plan. About a minute." />
@@ -339,7 +339,7 @@ export function GrowthTeaser() {
     return (
       <>
         <p className="text-sm">Get a step-by-step plan to 10,000 followers, built from your own videos, with this week's to-do list.</p>
-        <Road followers={followers} milestones={[{ followers: 5000, title: "5K" }, { followers: GOAL, title: "10K" }]} />
+        <Road followers={followers} milestones={[{ followers: 1000, title: "1K" }, { followers: 2500, title: "2.5K" }, { followers: 5000, title: "5K" }, { followers: GOAL, title: "10K" }]} />
       </>
     );
   }
