@@ -100,7 +100,7 @@ function LeadCard({ b }: { b: BrandLead }) {
           <h3 className="truncate font-semibold">{b.brand}</h3>
           <p className="text-muted-foreground truncate text-xs">
             {b.handle ? `@${b.handle} · ` : ""}
-            {b.posts} sponsored post{b.posts === 1 ? "" : "s"} seen
+            {b.posts} sponsored post{b.posts === 1 ? "" : "s"} in the last 6 weeks
           </p>
         </div>
         {b.category ? <Pill tone="accent" className="capitalize">{b.category}</Pill> : null}
