@@ -92,7 +92,7 @@ export function CreatePanel() {
                   }}
                 >
                   <Field label="Pillar">
-                    <NativeSelect value={pillar} onChange={setPillar} options={[{ value: "", label: "Mix of all four" }, ...PILLARS.map((p) => ({ value: p, label: p }))]} ariaLabel="Pillar" className="h-11" />
+                    <NativeSelect value={pillar} onChange={setPillar} options={[{ value: "", label: "Mix of all five" }, ...PILLARS.map((p) => ({ value: p, label: p }))]} ariaLabel="Pillar" className="h-11" />
                   </Field>
                   <Field label="Your own idea (optional)">
                     <Textarea value={own} onChange={(e) => setOwn(e.target.value)} placeholder="e.g. Meredith rates my outfit before date night" className="min-h-11" rows={1} maxLength={500} />
