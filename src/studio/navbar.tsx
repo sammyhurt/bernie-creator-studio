@@ -12,7 +12,7 @@ import { Wordmark } from "./wordmark";
 function Logo() {
   return (
     <button type="button" className="flex items-center" aria-label="Bernie Creator Studio home" data-home>
-      <Wordmark />
+      <Wordmark labelClassName="lg:max-xl:hidden" />
     </button>
   );
 }
@@ -70,10 +70,10 @@ export default function StudioNavbar({
         if ((e.target as HTMLElement).closest("[data-home]")) go("home");
       }}
     >
-      <div className="lg:bg-popover relative z-50 container flex h-[var(--header-height)] items-center justify-between gap-4 lg:h-[calc(var(--header-height)-20px)] lg:rounded-full lg:shadow-sm lg:backdrop-blur-md">
+      <div className="lg:bg-popover relative z-50 container flex h-[var(--header-height)] items-center justify-between gap-4 lg:h-[calc(var(--header-height)-20px)] lg:gap-2 xl:gap-4 lg:rounded-full lg:shadow-sm lg:backdrop-blur-md">
         <Logo />
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Studio sections">
+        <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1" aria-label="Studio sections">
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -81,7 +81,7 @@ export default function StudioNavbar({
               onClick={() => go(t.id)}
               aria-current={tab === t.id ? "page" : undefined}
               className={cn(
-                "hover:bg-accent inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm font-medium transition-colors",
+                "hover:bg-accent inline-flex h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium whitespace-nowrap transition-colors xl:gap-2 xl:px-3",
                 tab === t.id && "bg-accent font-semibold",
               )}
             >
@@ -91,7 +91,7 @@ export default function StudioNavbar({
           ))}
         </nav>
 
-        <div className="hidden items-center justify-end gap-3 lg:flex">
+        <div className="hidden shrink-0 items-center justify-end gap-1.5 lg:flex xl:gap-3">
           <span className="text-muted-foreground hidden items-center gap-2 text-xs 2xl:inline-flex">
             <span className="relative flex size-1.5">
               <span className="bg-chart-2 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
@@ -106,12 +106,12 @@ export default function StudioNavbar({
           ) : null}
           <ThemeToggle />
           {onLock ? (
-            <Button size="sm" variant="ghost" className="rounded-full px-3" onClick={onLock}>
+            <Button size="sm" variant="ghost" className="rounded-full px-2 xl:px-3" onClick={onLock}>
               Lock
             </Button>
           ) : null}
-          <Button size="sm" className="rounded-full px-3.5 shadow-none" onClick={onRefresh}>
-            <RefreshLinear className="size-4" /> Refresh
+          <Button size="sm" className="rounded-full px-3 shadow-none xl:px-3.5" onClick={onRefresh} aria-label="Refresh" title="Refresh">
+            <RefreshLinear className="size-4" /> <span className="hidden xl:inline">Refresh</span>
           </Button>
         </div>
 

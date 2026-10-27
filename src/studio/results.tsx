@@ -82,11 +82,13 @@ function Decisions() {
   const [added, setAdded] = useState<string[]>([]);
   const [busy, setBusy] = useState("");
   const list = e.data?.playbook?.decisions || [];
+  const norm = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const inCreate = new Set(s.ideas.map((i) => norm(i.title)));
   if (!list.length) return <Empty>Your 3 decisions for the week appear here every Monday morning.</Empty>;
   return (
     <ol className="grid gap-2.5">
       {list.map((d, i) => {
-        const done = added.includes(d.text);
+        const done = added.includes(d.text) || inCreate.has(norm(d.text));
         return (
           <li key={i} className="bg-background/70 border-border grid gap-2 rounded-xl border p-3.5">
             <div className="flex items-start gap-3">
@@ -385,8 +387,8 @@ export function ResultsPanel() {
                     </div>
                     {w.best ? (
                       <p className="text-sm">
-                        <span className="font-semibold">Best post:</span> {w.best.title} ({x(w.best.score)} your normal).{" "}
-                        <span className="text-muted-foreground">{pb?.best_why}</span>
+                        <span className="font-semibold">Best post:</span> {w.best.title} ({x(w.best.score)} your normal{w.best.score < 1 ? ", a slow week" : ""}).{" "}
+                        {w.best.score >= 1 ? <span className="text-muted-foreground">{pb?.best_why}</span> : null}
                       </p>
                     ) : w.only ? (
                       <p className="text-sm">

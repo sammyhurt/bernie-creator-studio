@@ -181,9 +181,9 @@ export const engine = {
     await loadEngine(true);
   },
   async addEarnings(rows: Partial<Earning>[], import_id = "") {
-    const r = await studioPost<{ added?: number }>(ENGINE_URL, { action: "earning_add", rows, import_id });
+    const r = await studioPost<{ added?: number; skipped?: number }>(ENGINE_URL, { action: "earning_add", rows, import_id });
     await loadEngine(true);
-    return Number(r.added) || 0;
+    return { added: Number(r.added) || 0, skipped: Number(r.skipped) || 0 };
   },
   async removeEarning(id: number) {
     await studioPost(ENGINE_URL, { action: "earning_remove", id });
@@ -193,6 +193,10 @@ export const engine = {
     const r = await studioPost<{ url?: string }>(ENGINE_URL, { action: "report", deal_id, video_id });
     await loadEngine(true);
     return String(r.url || "");
+  },
+  async reportOff(deal_id: number) {
+    await studioPost(ENGINE_URL, { action: "report_off", deal_id });
+    patchEngine((d) => ({ ...d, reports: d.reports.filter((r) => r.deal_id !== deal_id) }));
   },
   async runPlaybook() {
     await studioPost(RESULTS_RUN_URL, { action: "playbook" });

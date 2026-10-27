@@ -285,8 +285,8 @@ function CsvImport() {
               disabled={!!busy || !parsed.rows.length}
               onClick={() =>
                 void run("import", async () => {
-                  const added = await engine.addEarnings(parsed.rows.map((r) => ({ ...r, source: r.source || source.trim() || "Import", kind })), (name.replace(/[^a-z0-9]/gi, "").slice(0, 24) || "csv") + Date.now().toString(36));
-                  toast(`Added ${added} row${added === 1 ? "" : "s"}`);
+                  const { added, skipped } = await engine.addEarnings(parsed.rows.map((r) => ({ ...r, source: r.source || source.trim() || "Import", kind })), (name.replace(/[^a-z0-9]/gi, "").slice(0, 24) || "csv") + Date.now().toString(36));
+                  toast(added ? `${added} added${skipped ? `, ${skipped} already there` : ""}` : `All ${skipped} rows were already in your earnings`);
                   setParsed(null);
                 })
               }
@@ -305,6 +305,7 @@ function CsvImport() {
 
 function AddEarning() {
   const e = useEngine();
+  const toast = useToast();
   const { busy, run } = useAction();
   const today = new Date().toISOString().slice(0, 10);
   const [f, setF] = useState({ date: today, source: "", amount: "", kind: "deal" as EarnKind, video_id: "", note: "" });
@@ -316,9 +317,10 @@ function AddEarning() {
         ev.preventDefault();
         if (!money(f.amount)) return;
         void run("add", async () => {
-          await engine.addEarnings([{ ...f, amount: money(f.amount), source: f.source.trim() || "Manual" }]);
+          const r = await engine.addEarnings([{ ...f, amount: money(f.amount), source: f.source.trim() || "Manual" }]);
           setF({ ...f, source: "", amount: "", note: "", video_id: "" });
-        }, "Added");
+          toast(r.added ? "Added" : "That one is already in your earnings");
+        });
       }}
     >
       <Field label="Amount">
@@ -480,6 +482,9 @@ export function ReportLinksPanel() {
                         <a href={rep.url} target="_blank" rel="noopener noreferrer">
                           Preview <ArrowRightUp className="size-3.5" />
                         </a>
+                      </Button>
+                      <Button size="sm" variant="ghost" className="text-muted-foreground rounded-full" disabled={!!busy} onClick={() => void run("off" + d.id, () => engine.reportOff(d.id), "Link turned off. The brand can no longer open it.")}>
+                        {busy === "off" + d.id ? <Spinner /> : null} Turn off link
                       </Button>
                     </>
                   ) : (
