@@ -10,6 +10,7 @@ import type { Hook, Idea, Script } from "./data";
 import StudioHero from "./hero";
 import { HookLab, IdeaCard, ScriptModal } from "./ideas";
 import { useStudio } from "./store";
+import { VideoLab } from "./video";
 import { Empty, Grid, Panel, Skeleton } from "./ui";
 
 type Filter = "new" | "saved" | "scripted" | "all";
@@ -71,13 +72,17 @@ export function CreatePanel() {
 
   return (
     <>
-      <StudioHero eyebrow="Create" title="Ideas, hooks and scripts" lead="Ideas built from your own best videos and this week's trends. Pick one, test hooks, and get a script you can film today." />
+      <StudioHero eyebrow="Create" title="Ideas, hooks and scripts" lead="Upload a video you filmed for hooks, titles and hashtags, or get ideas built from your best videos and this week's trends." />
       <section className="pb-12 md:pb-16 lg:pb-24">
         <div className="container">
           {!d ? (
             <Skeleton className="h-72" />
           ) : (
             <Grid>
+              <Panel eyebrow="From your video" pattern="dots" className="lg:col-span-6">
+                <VideoLab />
+              </Panel>
+
               <Panel eyebrow="Get ideas" pattern="dots" className="lg:col-span-6">
                 <form
                   className="grid gap-4 md:grid-cols-[minmax(0,240px)_minmax(0,1fr)_auto] md:items-end"

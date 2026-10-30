@@ -8,6 +8,7 @@ export const CAROUSEL_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-carous
 export const SAVED_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-saved";
 export const SEARCH_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-search";
 export const GROWTH_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-growth";
+export const VIDEO_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-video";
 export const KIT_URL = "https://bernie-creator-studio.netlify.app/kit/";
 export const LINKS_MANAGE_URL = "https://subletlyco.app.n8n.cloud/webhook/bcs-links-manage";
 export const LINK_PAGE_URL = "https://bernie-creator-studio.netlify.app/links/";
@@ -113,6 +114,37 @@ export interface Idea {
   plan_time: string;
   has_script?: boolean;
   script: Script | null;
+}
+export interface VideoSummary { what_happens: string; moments: string; on_screen_text: string; setting: string; people: string; mood: string; pillar: string }
+export interface VideoHook { say: string; on_screen: string; open_on: string; hook_type: string; score: number; why: string }
+export interface VideoBody { hooks: VideoHook[]; titles: { caption: string; why: string }[]; hashtags: string[]; search_phrase: string; cover_at: string; edit_tip: string; top_pick_why: string }
+export interface VideoRun { id: number; created_at: string; file_name: string; duration_sec: number; notes: string; pillar: string; summary: VideoSummary; transcript: string; body: VideoBody | null; used_hook: string; posted_url: string; status: string }
+const parseJson = <T,>(v: unknown): T | null => {
+  if (v && typeof v === "object") return v as T;
+  try {
+    return v ? (JSON.parse(String(v)) as T) : null;
+  } catch {
+    return null;
+  }
+};
+export function toVideoRun(r: Record<string, unknown>): VideoRun {
+  const s = (v: unknown) => (v == null ? "" : String(v));
+  const sm = parseJson<Partial<VideoSummary>>(r.summary) || {};
+  const b = parseJson<Partial<VideoBody>>(r.body);
+  return {
+    id: Number(r.id) || 0,
+    created_at: s(r.created_at || r.createdAt),
+    file_name: s(r.file_name),
+    duration_sec: Number(r.duration_sec) || 0,
+    notes: s(r.notes),
+    pillar: s(r.pillar),
+    summary: { what_happens: s(sm.what_happens), moments: s(sm.moments), on_screen_text: s(sm.on_screen_text), setting: s(sm.setting), people: s(sm.people), mood: s(sm.mood), pillar: s(sm.pillar || r.pillar) },
+    transcript: s(r.transcript),
+    body: b && Array.isArray(b.hooks) ? { hooks: b.hooks, titles: Array.isArray(b.titles) ? b.titles : [], hashtags: Array.isArray(b.hashtags) ? b.hashtags : [], search_phrase: s(b.search_phrase), cover_at: s(b.cover_at), edit_tip: s(b.edit_tip), top_pick_why: s(b.top_pick_why) } : null,
+    used_hook: s(r.used_hook),
+    posted_url: s(r.posted_url),
+    status: s(r.status) || "summary",
+  };
 }
 export interface Hook { say: string; on_screen: string; hook_type: string; score: number; why: string }
 export interface RadarItem { kind: "inspiration" | "trend" | "comment" | "hot"; source: string; title: string; url: string; views: number; ratio: number; why: string; how_to_use: string; use_by: string; flag: string; at: string }
